@@ -13,11 +13,17 @@ ua = {'User-agent': 'Mozilla/5.0'}
 
 
 def connect(start_url, search_term):
-    search_page = requests.get(start_url.format(search_term), headers=ua)
+    try:
+        search_page = requests.get(start_url.format(search_term), headers=ua)
+    except:
+        connect(start_url, search_term)
     soup = bs(search_page.text, 'lxml')
     title = soup.title.text
     while 'Robot Check' in title:
-        search_page = requests.get(start_url.format(search_term), headers=ua)
+        try:
+            search_page = requests.get(start_url.format(search_term), headers=ua)
+        except:
+            connect(start_url, search_term)
         soup = bs(search_page.text, 'lxml')
         title = soup.title.text
     if soup:

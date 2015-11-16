@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup as bs
 import scraperwiki
 from datetime import datetime
 import re
-
+import time
 
 start_url = 'http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords={}'
 ua = {'User-agent': 'Mozilla/5.0'}
@@ -16,6 +16,7 @@ def connect(start_url, search_term):
     try:
         search_page = requests.get(start_url.format(search_term), headers=ua)
     except:
+        time.sleep(600)
         connect(start_url, search_term)
     soup = bs(search_page.text, 'lxml')
     title = soup.title.text
@@ -23,6 +24,7 @@ def connect(start_url, search_term):
         try:
             search_page = requests.get(start_url.format(search_term), headers=ua)
         except:
+            time.sleep(600)
             connect(start_url, search_term)
         soup = bs(search_page.text, 'lxml')
         title = soup.title.text

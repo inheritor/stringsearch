@@ -71,7 +71,10 @@ def parse(search_term, search_tag, p):
         try:
             price = search_row.find('div', 'a-fixed-left-grid-col a-col-right').find(text=re.compile('to buy')).find_previous('span', 'a-size-base a-color-price s-price a-text-bold').text
         except:
-            pass
+            try:
+                price = search_row.find('div', 'a-fixed-left-grid-col a-col-right').find('span', 'a-size-small a-color-secondary a-text-strike').find_previous('span', 'a-size-base a-color-price s-price a-text-bold').text
+            except:
+                pass
         low_price = ''
         try:
             low_price = search_row.find('div', 'a-fixed-left-grid-col a-col-right').find(text=re.compile('used & new')).find_previous('span', 'a-size-base a-color-price a-text-bold').text

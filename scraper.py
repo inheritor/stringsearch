@@ -37,7 +37,7 @@ def parse(search_term, search_tag, p):
             asin = search_row.find('a', 'a-link-normal s-access-detail-page  a-text-normal')['href'].split('dp/')[-1].split('/')[0]
             #asin = '='+'"'+search_row.find('a', 'a-link-normal s-access-detail-page  a-text-normal')['href'].split('dp/')[-1].split('/')[0]+'"'
         except: continue
-        
+        print(title)
         pubdate = ''
         try:
             pubdate = search_row.find('div', 'a-row a-spacing-small').find('span', 'a-size-small a-color-secondary').text.strip().replace('by', '')
@@ -168,7 +168,7 @@ def parse(search_term, search_tag, p):
             new_stock_status = 'unavailable'
             new_restock_date = 'unknown'
         elif 'may require an extra' in new_stock_count:
-            new_restock_date = new_stock_count.split('an')[-1].strip().split('')
+            new_restock_date = new_stock_count.split('an')[-1].strip().split('to')[0].strip()
             new_stock_count = 0
             new_stock_status = 'extra processing'
         elif 'Available for Pre-order' in new_stock_count:
@@ -176,7 +176,7 @@ def parse(search_term, search_tag, p):
             new_stock_count = 0
             new_stock_status = 'pre-order'
         elif 'In stock on' in new_stock_count:
-            new_restock_date = new_stock_count.split('on')[-1].strip().split('to')[0].strip()
+            new_restock_date = new_stock_count.split('on')[-1].strip()
             new_stock_count = 0
             new_stock_status = 'replenishing'
 

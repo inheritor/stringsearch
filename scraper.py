@@ -1,8 +1,12 @@
+import sys
+reload(sys)
+sys.setdefaultencoding('UTF8')
 import requests
 from bs4 import BeautifulSoup as bs
 import scraperwiki
 from datetime import datetime
 import re
+import time
 
 
 start_url = 'http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords={}'
